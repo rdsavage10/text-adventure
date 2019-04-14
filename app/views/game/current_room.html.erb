@@ -4,5 +4,6 @@
 
 <p><%= @room.description %></p>
 
-<p> <%= link_to @room.link1[0], current_room_path(id:@link1) %> </p>
-<p>  <%= link_to @room.link2[0], current_room_path(id:@link2) %> </p>
+<% @paths.each do |path| %>
+<p> <%= link_to path[0], current_room_path(id:path[1]) %> </p>
+<% end %>
