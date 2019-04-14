@@ -1,10 +1,30 @@
+<body>
 
+<div class="container text-center">
 
-<h2><%= @room.name %><h2>
+  <div class="">
+      <h2><%= @room.name %></h2>
+  </div>
 
-<p><%= @room.description %></p>
-<p> 
-<% @paths.each do |path| %>
-<%= link_to path[0], current_room_path(id:path[1]), class: 'btn btn-primary' %>
-<% end %>
-</p>
+  <div>
+    <p><%= @room.description %></p>
+    <p>
+    <% @paths.each_with_index do |path, index| %>
+      <% if @chance[index] == true %>
+          <%= link_to path[0] + " #{path[2]}% chance (test: pass)", current_room_path(id:path[1]), class: 'btn btn-primary' %>
+      <% elsif @chance[index] == false %>
+          <%= link_to path[0] + " #{path[2]}% chance (test: fail)", current_room_path(id:path[3]), class: 'btn btn-primary' %>
+      <% elsif @chance[index] = "fuck" %>
+        <%= link_to path[0], current_room_path(id:path[1]), class: 'btn btn-primary' %>
+      <% end %>
+
+    <% end %>
+    </p>
+
+  </div>
+</div>
+</body>
+
+<footer class="">
+  <%= link_to "Main menu", start_menu_path, class: "btn btn-danger m-1"%>
+</footer>
