@@ -15,7 +15,7 @@ Room.create(name: "Upper Balcony" , description: "You are on a balcony over a ga
 #4
 Room.create(name: "Lower Balcony" , description: "You are on the lower of two balconies, above and to the right you see the upper balcony, below you see a garden" , path: [["Decend Stairs", 1 ], ["Jump Over Rails",2, 50, 5]])
 #5
-Room.create(name: "Oops" , description: "You clamber of the railing and prepare to jump, but before you can, you slip, hitting your head on the railing and falling to the garden below
+Room.create(name: "Oops" , description: "You clamber over the railing and prepare to jump, but before you can, you slip, hitting your head on the railing and falling to the garden below
   GAME OVER" , path: [["Restart?", 1]])
 
 #6
