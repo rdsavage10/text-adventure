@@ -3,7 +3,8 @@
 <h2><%= @room.name %><h2>
 
 <p><%= @room.description %></p>
-
+<p> 
 <% @paths.each do |path| %>
-<p> <%= link_to path[0], current_room_path(id:path[1]) %> </p>
+<%= link_to path[0], current_room_path(id:path[1]), class: 'btn btn-primary' %>
 <% end %>
+</p>
