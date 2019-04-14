@@ -54,4 +54,4 @@ Room.create(name: "Scope out the defenses" , description: "You discretely make y
 Room.create(name: "Daytime Lockpicking" , description: "You start picking the lock, its nothing special and you make quick work of it. you are about to stand up when the door swings open and slams into you face.
   you come to lying on your back guards approaching from both sides. A cook with a large pot stands over you. Before you can regain your sense you are being dragged away to the dungeon
 
-  GAME OVER" , path: [["", 6])
+  GAME OVER" , path: [["", 6]])
