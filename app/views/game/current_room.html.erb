@@ -8,14 +8,46 @@
 
   <div>
     <p><%= @room.description %></p>
+    <p></p>
+
+
+    <ul class="d-flex justify-content-center">
+      <% @room_items.each do |item|  %>
+        <div class="card col-2 "><%= item %> </div>
+      <% end %>
+    </ul>
+<%# link_to "Pickup #{key}?", current_room_path, class: "btn btn-primary"%>
+
+
+
+    <ul>
+      <strong>In your inventory you find:</strong>
+
+      <div class="d-flex justify-content-center">
+        <% session[:inventory].each do |key, value| %>
+          <% if value == true  %>
+              <p  class="card col-2"><%= key %></p>
+          <% end %>
+        <% end %>
+      </div>
+    </ul>
+    <p>
+
+    <div>
+
+    </div>
+
+
+
+
     <p>
     <% @paths.each_with_index do |path, index| %>
       <% if @chance[index] == true %>
-          <%= link_to path[0] + " #{path[2]}% chance (test: pass)", current_room_path(id:path[1]), class: 'btn btn-primary' %>
+          <%= link_to path[:text] + " #{path[:chance]}% chance (test:pass)", current_room_path(id:path[:main_path]), class: 'btn btn-primary' %>
       <% elsif @chance[index] == false %>
-          <%= link_to path[0] + " #{path[2]}% chance (test: fail)", current_room_path(id:path[3]), class: 'btn btn-primary' %>
-      <% elsif @chance[index] = "fuck" %>
-        <%= link_to path[0], current_room_path(id:path[1]), class: 'btn btn-primary' %>
+          <%= link_to path[:text] + " #{path[2]}% chance (test:fail)", current_room_path(id:path[:chance_path]), class: 'btn btn-primary' %>
+      <% elsif @chance[index] = "pass" %>
+        <%= link_to path[:text], current_room_path(id:path[:main_path]), class: 'btn btn-primary' %>
       <% end %>
 
     <% end %>

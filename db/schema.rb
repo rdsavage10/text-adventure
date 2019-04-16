@@ -15,7 +15,10 @@ ActiveRecord::Schema.define(version: 2019_04_13_212043) do
   create_table "rooms", force: :cascade do |t|
     t.string "name"
     t.text "description"
+    t.text "action_text"
+    t.text "state"
     t.text "path"
+    t.text "room_items"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
