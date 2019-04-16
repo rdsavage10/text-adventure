@@ -29,7 +29,9 @@ class GameController < ApplicationController
       end
     end
 
+    def pickup_item
 
+    end
 
 
   end
@@ -40,7 +42,7 @@ class GameController < ApplicationController
   end
 
   def start
-    session[:inventory] = {"dagger" => true, "Garden Key" => false }
+    session[:inventory] = {"Dagger" => true, "Garden Key" => false }
     session[:game_vars] = {"Balcony Jump": false}
   end
 

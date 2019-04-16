@@ -63,7 +63,8 @@ Room.create(
     post_action: "There is a door on one wall. You look up at the balconies, amazed you survived that jump.",
 
     },
-  path: [{text: "Go back inside" , main_path: 1, require: "Garden Key"}]
+  path: [{text: "Go back inside" , main_path: 1, require: "Garden Key"}],
+  room_items: ["Dagger"]
 )
 
 #3
@@ -102,7 +103,7 @@ Room.create(name: "Introduction",description: "You are an assassin hired by Prin
 Room.create(name: "Stay with the caravan" , description: "You sit in the back of a merchant cart." , path: [["Talk to merchant", 9], ["Wait to arrive", ]])
 
 #9
-Room.create(name: "Talk to driver" , description: "Merchant: 'They say the king has been getting increasingly paranoid as of late, they won't let anyone in with a weapon anymore. If you have any, now would probably be the time to get rid of them." , path: [["Toss out dagger",], [" Say 'I don't listen to stupid merchants' ",]])
+Room.create(name: "Talk to driver" , description: "Merchant: 'They say the king has been getting increasingly paranoid as of late, they won't let anyone in with a weapon anymore. If you have any, now would probably be the time to get rid of them." , path: [["Toss out Dagger",], [" Say 'I don't listen to stupid merchants' ",]])
 
 #10
 Room.create(name: "The Castle Gates" , description: "As you arrive at the gates, two guards begin to search the caravan, they make their way to you and find... A DAGGER hidden under your clothes! You try to escape but a crossbowman on the wall above makes quick work of you.

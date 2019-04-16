@@ -13,7 +13,10 @@
 
     <ul class="d-flex justify-content-center">
       <% @room_items.each do |item|  %>
-        <div class="card col-2 "><%= item %> </div>
+        <% if session[:inventory][item] == false %>
+          <div class="card col-2 "><%= item %> </div>
+        <% else %>
+        <% end %>
       <% end %>
     </ul>
 <%# link_to "Pickup #{key}?", current_room_path, class: "btn btn-primary"%>
