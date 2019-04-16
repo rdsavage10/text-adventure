@@ -45,7 +45,7 @@
       <% if @chance[index] == true %>
           <%= link_to path[:text] + " #{path[:chance]}% chance (test:pass)", current_room_path(id:path[:main_path]), class: 'btn btn-primary' %>
       <% elsif @chance[index] == false %>
-          <%= link_to path[:text] + " #{path[2]}% chance (test:fail)", current_room_path(id:path[:chance_path]), class: 'btn btn-primary' %>
+          <%= link_to path[:text] + " #{path[:chance]}% chance (test:fail)", current_room_path(id:path[:chance_path]), class: 'btn btn-primary' %>
       <% elsif @chance[index] = "pass" %>
         <%= link_to path[:text], current_room_path(id:path[:main_path]), class: 'btn btn-primary' %>
       <% end %>
