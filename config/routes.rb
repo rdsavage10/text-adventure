@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   root 'game#start'
   get 'current_room' => 'game#current_room'
   get 'start_menu' => 'game#start'
