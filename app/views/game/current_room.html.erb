@@ -12,11 +12,11 @@
 
 
     <ul class="d-flex justify-content-center">
-      <% @room_items.each do |item|  %>
-        <% if session[:inventory][item] == false %>
-          <div class="card col-2 "><%= item %> </div>
-        <% else %>
-        <% end %>
+      <% @room_items.each do |item_id|  %>
+        <%# if session[:inventory][item_id] == false %>
+          <div class="card col-2 "><%= @items[item_id][:name] %> <%= link_to "Pickup" %> </div>
+        <%# else %>
+        <%# end %>
       <% end %>
     </ul>
 <%# link_to "Pickup #{key}?", current_room_path, class: "btn btn-primary"%>
@@ -25,12 +25,10 @@
 
     <ul>
       <strong>In your inventory you find:</strong>
-
       <div class="d-flex justify-content-center">
-        <% session[:inventory].each do |key, value| %>
-          <% if value == true  %>
-              <p  class="card col-2"><%= key %></p>
-          <% end %>
+        <% @inventory.each do |item_id| %>
+              <p  class="card col-2"><%= @items[item_id][:name] %> </p>
+
         <% end %>
       </div>
     </ul>

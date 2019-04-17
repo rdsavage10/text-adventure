@@ -29,12 +29,26 @@ Examples:
 
    ])
 
+   Item.create(name:"", description: "")
 
 
 
    movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
    Character.create(name: 'Luke', movie: movies.first)
 =end
+#item 1
+Item.create(name:"Dagger", description: "A dagger made of the finest steel")
+
+#item 2
+Item.create(name:"Garden Key", description: "Looks like an average door key")
+
+#item 3
+Item.create(name:"Penny", description: "It's shiny!")
+
+
+
+
+
 
 
 #1
@@ -47,10 +61,10 @@ Room.create(
     pre_pickup: ["On a table nearby you see a key.", " On the floor you see a shiny penny!" ],
     pickup: ["You walk over and grab the key off the table","You bend over and grab the penny off the ground"]},
   path: [
-   {text: "Go outside", main_path: 2, require: ["Garden Key"]},
+   {text: "Go outside", main_path: 2, require: [2]},
    {text:"Climb the stairs on the left", main_path: 4},
    {text:"Climb the stairs on the right", main_path: 3}],
-  room_items: ["Garden Key", "A Shiny Penny"])
+  room_items: [1,2])
 
 
 #2

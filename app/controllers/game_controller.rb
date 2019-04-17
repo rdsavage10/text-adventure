@@ -2,19 +2,13 @@ class GameController < ApplicationController
 
   def current_room
     @room = Room.find(params[:id])
+    @items = Item.all
+    @inventory = guest_user[:item_id]
     #@room = Room.find_by(name: params[:name])
     @paths = @room.path
     @action_text = @room.action_text
     @chance = []
     @room_items = @room.room_items
-    session[:inventory]
-    session[:game_vars]
-
-    @room_items.each do |item|
-      if session[:inventory][item].nil?
-        session[:inventory][item] = false
-      end
-    end
 
 
     @paths.each_with_index do |path, index|
@@ -42,6 +36,11 @@ class GameController < ApplicationController
   end
 
   def start
+
+    if guest_user == nil
+      guest_user
+      debugger
+    end
     session[:inventory] = {"Dagger" => true, "Garden Key" => false }
     session[:game_vars] = {"Balcony Jump": false}
   end
