@@ -14,14 +14,13 @@
     <ul class="d-flex justify-content-center">
       <% @room_items.each do |item_id|  %>
         <%# if session[:inventory][item_id] == false %>
-          <div class="card col-2 "><%= @items[item_id][:name] %> <%= link_to "Pickup" %> </div>
+          <div class="card col-2 "><%= @items[item_id][:name] %>
+            <%= link_to "Pickup", pickup_path(id: @room[:id],item_id: @items[item_id]), method: :post, class: "btn" %> </div>
         <%# else %>
         <%# end %>
       <% end %>
     </ul>
 <%# link_to "Pickup #{key}?", current_room_path, class: "btn btn-primary"%>
-
-
 
     <ul>
       <strong>In your inventory you find:</strong>

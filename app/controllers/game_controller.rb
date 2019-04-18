@@ -10,7 +10,6 @@ class GameController < ApplicationController
     @chance = []
     @room_items = @room.room_items
 
-
     @paths.each_with_index do |path, index|
       if path[:chance] != nil
         if path[:chance] >= rand(100)
@@ -30,6 +29,11 @@ class GameController < ApplicationController
 
   end
 
+  def pickup
+    
+
+  end
+
   def index
     @rooms = Room.all
 
@@ -41,8 +45,8 @@ class GameController < ApplicationController
       guest_user
       debugger
     end
-    session[:inventory] = {"Dagger" => true, "Garden Key" => false }
-    session[:game_vars] = {"Balcony Jump": false}
+    # session[:inventory] = {"Dagger" => true, "Garden Key" => false }
+    # session[:game_vars] = {"Balcony Jump": false}
   end
 
 end

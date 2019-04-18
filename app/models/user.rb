@@ -7,5 +7,6 @@ class User < ApplicationRecord
         has_many :room_ids
         serialize :item_id, Array
         serialize :room_id, Array
+        serialize :room_data, Array
 
 end
