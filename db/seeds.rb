@@ -78,7 +78,7 @@ Room.create(
 
     },
   path: [{text: "Go back inside" , main_path: 1, require: "Garden Key"}],
-  room_items: ["Dagger"]
+  room_items: [0]
 )
 
 #3
