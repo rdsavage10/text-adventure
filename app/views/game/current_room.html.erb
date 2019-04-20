@@ -15,7 +15,7 @@
       <% @room_data[@room.id].each do |item_id|  %>
           <div class="card col-2 "><%= @items[item_id][:name]  %>
             <% if !@inventory.include? (item_id) %>
-              <%= link_to "Pickup", pickup_path(id: @room[:id], item_id: @items[item_id]), method: :post, class: "btn btn-info" %>
+              <%= link_to "Pickup", pickup_path(id: @room[:id], item_id: @items[item_id]), method: :post, class: "btn btn-sm btn-info" %>
             <% else %>
             <br>
               (max # in inventory)
@@ -29,8 +29,14 @@
       <strong>In your inventory you find:</strong>
       <div class="d-flex justify-content-center">
         <% @inventory.each do |item_id| %>
-              <p  class="card col-2"><%= @items[item_id][:name] %> </p>
-
+              <p  class="card col-2"><%= @items[item_id][:name] %>
+                <% if !@room_data[@room.id].include? (item_id) %>
+                  <%= link_to "Drop", drop_path(id: @room[:id], item_id: @items[item_id]), method: :post, class: "btn btn-sm btn-info" %>
+                <% else %>
+                  <br>
+                  (max # in room)
+                <% end %>
+              </p>
         <% end %>
       </div>
     </ul>
@@ -52,7 +58,6 @@
       <% elsif @chance[index] = "pass" %>
         <%= link_to path[:text], current_room_path(id:path[:main_path]), class: 'btn btn-primary' %>
       <% end %>
-
     <% end %>
     </p>
 

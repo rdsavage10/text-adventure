@@ -30,6 +30,21 @@ class GameController < ApplicationController
 
   end
 
+  def drop
+    id = params[:id].to_i
+    item_id = params[:item_id].to_i
+    item_id -= 1
+    user = guest_user
+    #guest_user[:item_id][id].push(item_id)
+    if !guest_user[:room_data][id].include? item_id
+       guest_user[:item_id].delete(item_id)
+       guest_user[:room_data][id].push(item_id)
+    end
+    user.save
+    # guest_user[:room_data][params[:id]] = nil
+    redirect_to current_room_path(id: params[:id])
+  end
+
   def pickup
     id = params[:id].to_i
     item_id = params[:item_id].to_i
@@ -47,7 +62,6 @@ class GameController < ApplicationController
 
   def index
     @rooms = Room.all
-
   end
 
   def start
