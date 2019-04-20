@@ -1,10 +1,28 @@
 
   <% @rooms.each do |room| %>
-    <div>
-      <p><%= room.name %></p>
-      <p><%= room.description %></p>
-      <p><%= room.link1 %></p>
-      <p><%= room.link2 %></p>
-      <p><%= room.id %></p>
-    </div>
+    <table class="table">
+      <h4><%= room.name %> <%= room.id %></h4>
+      <tr>
+        <th>description</th>
+        <th>Action Text</th>
+        <th>Path</th>
+      </tr>
+      <tr>
+        <td><%= room.description %></td>
+        <td>
+          <ol>
+            <% room.action_text.each do |action| %>
+              <li><%= action %> <br></li>
+            <% end %>
+          </ol>
+        </td>
+        <td>
+          <ol>
+            <% room.path.each do |path| %>
+              <li><%= path %> <br> </li>
+            <% end %>
+          </ol>
+        </td>
+      </tr>
+    </table>
     <% end %>

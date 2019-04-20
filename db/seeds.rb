@@ -61,7 +61,7 @@ Room.create(
     pre_pickup: ["On a table nearby you see a key.", " On the floor you see a shiny penny!" ],
     pickup: ["You walk over and grab the key off the table","You bend over and grab the penny off the ground"]},
   path: [
-   {text: "Go outside", main_path: 2, require: [2]},
+   {text: "Go outside", main_path: 2, require: 2},
    {text:"Climb the stairs on the left", main_path: 4},
    {text:"Climb the stairs on the right", main_path: 3}],
   room_items: [1,2])
@@ -77,7 +77,7 @@ Room.create(
     post_action: "There is a door on one wall. You look up at the balconies, amazed you survived that jump.",
 
     },
-  path: [{text: "Go back inside" , main_path: 1, require: "Garden Key"}],
+  path: [{text: "Go back inside" , main_path: 1, require: 2}],
   room_items: [0]
 )
 

@@ -51,12 +51,16 @@
 
     <p>
     <% @paths.each_with_index do |path, index| %>
-      <% if @chance[index] == true %>
-          <%= link_to path[:text] + " #{path[:chance]}% chance (test:pass)", current_room_path(id:path[:main_path]), class: 'btn btn-primary' %>
-      <% elsif @chance[index] == false %>
-          <%= link_to path[:text] + " #{path[:chance]}% chance (test:fail)", current_room_path(id:path[:chance_path]), class: 'btn btn-primary' %>
-      <% elsif @chance[index] = "pass" %>
-        <%= link_to path[:text], current_room_path(id:path[:main_path]), class: 'btn btn-primary' %>
+      <% if path[:require] == nil || (@inventory.include? path[:require] - 1)  %>
+        <% if @chance[index] == true %>
+            <%= link_to path[:text] + " #{path[:chance]}% chance (test:pass)", current_room_path(id:path[:main_path]), class: 'btn btn-primary' %>
+        <% elsif @chance[index] == false %>
+            <%= link_to path[:text] + " #{path[:chance]}% chance (test:fail)", current_room_path(id:path[:chance_path]), class: 'btn btn-primary' %>
+        <% elsif @chance[index] = "pass" %>
+          <%= link_to path[:text], current_room_path(id:path[:main_path]), class: 'btn btn-primary' %>
+        <% end %>
+      <% else %>
+        <%= link_to path[:text] + " (locked. needs #{@items[path[:require] - 1].name})", current_room_path(id:path[:main_path]) , class: 'disabled btn btn-danger' %>
       <% end %>
     <% end %>
     </p>
