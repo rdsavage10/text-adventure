@@ -36,13 +36,13 @@ Examples:
    movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
    Character.create(name: 'Luke', movie: movies.first)
 =end
-#item 1
+#item 0
 #Item.create(name:"Dagger", description: "A dagger made of the finest steel")
 
-#item 2
+#item 1
 #Item.create(name:"Garden Key", description: "Looks like an average door key")
 
-#item 3
+#item 2
 #Item.create(name:"Penny", description: "It's shiny!")
 
 item = Item.create([{name:"Dagger", description: "A dagger made of the finest steel"}, {name:"Garden Key", description: "Looks like an average door key"}, name:"Penny", description: "It's shiny!" ])
@@ -57,8 +57,8 @@ Room.create(
   action_text: {
     default:"You Stand in the Center of the room.",
     fail_require: "You try to open the door but it's locked",
-    pre_pickup: ["On a table nearby you see a key.", " On the floor you see a shiny penny!" ],
-    pickup: ["You walk over and grab the key off the table","You bend over and grab the penny off the ground"]},
+    pre_pickup: {2 => " On the floor you see a shiny penny!"} ,
+    pickup: {2 => "You bend over and grab the penny off the ground"}},
   path: [
    {text: "Go outside", main_path: 2, require: 1},
    {text:"Climb the stairs on the left", main_path: 4},
@@ -72,8 +72,9 @@ Room.create(
   description: "You are in a green garden.",
   action_text: {
     default: "There is a door on one wall. You look up and see two balconies at different heights. How odd.",
-    fail_require: "You try to open the door but it's locked. Through a small window you can see a key inside on a table",
-    post_action: "There is a door on one wall. You look up at the balconies, amazed you survived that jump.",
+    pre_pickup: {1 => " You see a key on a table near the door."},
+    pickup: {1 => "You walk over and grab the key off the table"},
+    post_action: " You look up at the balconies, amazed you survived that jump.",
 
     },
   path: [{text: "Go back inside" , main_path: 1, require: 1}],
@@ -102,8 +103,7 @@ Room.create(
 Room.create(
   name: "Oops" ,
   description: "You clamber over the railing and prepare to jump, but before you can, you slip, hitting your head on the railing and falling to the garden below
-  GAME OVER" ,
-  path: [{ text: "Restart?", main_path: 1}])
+  GAME OVER")
 
 #6
 Room.create(name: "" , description: "" , path: [["",], [" ",]])
@@ -121,7 +121,7 @@ Room.create(name: "Talk to driver" , description: "Merchant: 'They say the king 
 #10
 Room.create(name: "The Castle Gates" , description: "As you arrive at the gates, two guards begin to search the caravan, they make their way to you and find... A DAGGER hidden under your clothes! You try to escape but a crossbowman on the wall above makes quick work of you.
 
-  GAME OVER ", path: [["Restart?", 7]])
+  GAME OVER ")
 
 #11
 Room.create(name: "Toss your dagger" , description: "You throw your dagger into the bushes somewhere out of the cart. Hopefully that wasn't a big mistake.." , path: [["to the gates",]])
@@ -142,7 +142,7 @@ Room.create(name: "Scope out the defenses" , description: "You discretely make y
 Room.create(name: "Daytime Lockpicking" , description: "You start picking the lock, it's nothing special and you make quick work of it. You are about to stand up when the door swings open and slams into you face.
   You wake up lying on your back, guards approaching from both sides. A cook with a large pot stands over you. Before you can regain your senses, you are being dragged away to the dungeon.
 
-  GAME OVER" , path: [["Restart?", 6]])
+  GAME OVER")
 #17
 Room.create(name: "Daytime Picking Blues" , description: "You start picking the lock, but it proves to be more difficult than it seemed at first glance. Before you can open the door, Someone shouts 'HEY YOU'RE NOT SUPPOSED TO BD HERE!' Guards Approach from both ends of the narrow alley. There's no escape this time. GAME OVER" , path: [["Restart?", 7]])
 

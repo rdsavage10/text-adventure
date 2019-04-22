@@ -17,3 +17,12 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+
+$('.popover-dismiss').popover({
+  trigger: 'focus'
+})

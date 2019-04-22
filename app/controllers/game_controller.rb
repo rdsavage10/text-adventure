@@ -37,6 +37,17 @@ class GameController < ApplicationController
       end
     end
 
+    @action = [@action_text[:default]]        # Default room text
+    if !@room_items.nil?                      # Room text for each default item
+      @room_items.each do |item|
+        if !@action_text[:pre_pickup][item].nil?
+          @action.push(@action_text[:pre_pickup][item])
+        end
+      end
+    end
+
+
+
 
   end
 
