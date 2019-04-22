@@ -2,15 +2,22 @@
 
 <div class="container text-center pt-5">
   <h1 class="m-1">Main Menu</h1>
+  <div class="row flex-center py-3">
+    <div class="col"></div>
+    <div class="col col-2 card ">
+      <h4>Testing Hall</h4> <br>
+      <%= link_to "New Game", new_game_path(id: 1), method: :post, class: "btn btn-success m-1"%>
+      <br>
+      <% if !@last_room.nil? %>
+        <%= link_to "Continue", continue_game_path, method: :post, class: "btn btn-success m-1"%>
+      <% end %>
+    </div>
 
-  <p class="m-1">eventually, optional game customization options go here</p>
-
-
-
-
-
-  <%= link_to "testing hall", current_room_path(id: 1), class: "btn btn-warning m-1"%>
-  <%= link_to "New Game", current_room_path(id: 7), class: "btn btn-danger m-1"%>
-
+    <div class="col col-2 card">
+      <h4>Story</h4>
+      <%= link_to "New Game", new_game_path(id: 7), method: :post, class: "btn btn-success disabled m-1"%>
+    </div>
+    <div class="col"></div>
+  </div>
 </div>
 </body>

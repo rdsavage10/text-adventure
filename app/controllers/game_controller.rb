@@ -1,7 +1,17 @@
 class GameController < ApplicationController
 
+
+  def start
+    if guest_user == nil
+      guest_user
+    end
+    @last_room = guest_user[:room_id]
+  end
+
   def current_room
     @room = Room.find(params[:id])            #calls this room
+    guest_user[:room_id] = @room[:id]         #saves room to find from main menu
+    guest_user.save
     @items = Item.all                         #displays attributes for all possible items
     @inventory = guest_user[:item_id]         #allows reading of stored inventory between rooms
     @paths = @room.path                       #shortcut to this rooms exits
@@ -14,8 +24,8 @@ class GameController < ApplicationController
     @room_data = guest_user[:room_data]
     @room_items = @room_data[@room[:id]]
 
-    @chance = []                        #preps variable for use
-    @paths.each_with_index do |path, index|  #puts each chance value in an array that corresponds to the path index
+    @chance = []                              #preps variable for use
+    @paths.each_with_index do |path, index|   #puts each chance value in an array that corresponds to the path index
       if path[:chance] != nil
         if path[:chance] >= rand(100)
           @chance[index] = true
@@ -30,10 +40,23 @@ class GameController < ApplicationController
 
   end
 
-  def drop
+  def new_game
+    guest_user[:room_data] = {}
+    guest_user[:item_id] = [0]
+    user = guest_user
+    user.save
+    redirect_to current_room_path(id: params[:id])
+  end
+
+  def continue_game
+    id = guest_user[:room_id]
+    redirect_to current_room_path(id: id)
+
+  end
+
+  def drop                 #Drops item from inventory into room
     id = params[:id].to_i
     item_id = params[:item_id].to_i
-    item_id -= 1
     user = guest_user
     #guest_user[:item_id][id].push(item_id)
     if !guest_user[:room_data][id].include? item_id
@@ -42,13 +65,12 @@ class GameController < ApplicationController
     end
     user.save
     # guest_user[:room_data][params[:id]] = nil
-    redirect_to current_room_path(id: params[:id])
+    redirect_to current_room_path(id: id)
   end
 
   def pickup
     id = params[:id].to_i
     item_id = params[:item_id].to_i
-    item_id -= 1
     user = guest_user
     #guest_user[:item_id][id].push(item_id)
     if !guest_user[:item_id].include? item_id
@@ -57,18 +79,13 @@ class GameController < ApplicationController
     end
     user.save
     # guest_user[:room_data][params[:id]] = nil
-    redirect_to current_room_path(id: params[:id])
+    redirect_to current_room_path(id: params[:id])             #Takes item from room into inventory
   end
 
   def index
-    @rooms = Room.all
+    @rooms = Room.all              #Begining of room builder GUI
   end
 
-  def start
-    if guest_user == nil
-      guest_user
-    end
-  end
 
 
   private

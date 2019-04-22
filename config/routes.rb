@@ -6,5 +6,8 @@ Rails.application.routes.draw do
   get 'index' => 'game#index'
   post 'pickup' => 'game#pickup'
   post 'drop' => 'game#drop'
+  post 'new_game' => 'game#new_game'
+  post 'continue_game' => 'game#continue_game'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

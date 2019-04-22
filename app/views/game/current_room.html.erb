@@ -7,51 +7,28 @@
   </div>
 
   <div>
-    <p><%= @room.description %></p>
-    <p></p>
 
-
-    <ul class="d-flex justify-content-center">
-      <% @room_data[@room.id].each do |item_id|  %>
-          <div class="card col-2 "><%= @items[item_id][:name]  %>
-            <% if !@inventory.include? (item_id) %>
-              <%= link_to "Pickup", pickup_path(id: @room[:id], item_id: @items[item_id]), method: :post, class: "btn btn-sm btn-info" %>
-            <% else %>
-            <br>
-              (max # in inventory)
-            <% end %>
-          </div>
-      <% end %>
-    </ul>
-<%# link_to "Pickup #{key}?", current_room_path, class: "btn btn-primary"%>
-
-    <ul>
-      <strong>In your inventory you find:</strong>
-      <div class="d-flex justify-content-center">
-        <% @inventory.each do |item_id| %>
-              <p  class="card col-2"><%= @items[item_id][:name] %>
-                <% if !@room_data[@room.id].include? (item_id) %>
-                  <%= link_to "Drop", drop_path(id: @room[:id], item_id: @items[item_id]), method: :post, class: "btn btn-sm btn-info" %>
-                <% else %>
-                  <br>
-                  (max # in room)
-                <% end %>
-              </p>
-        <% end %>
-      </div>
-    </ul>
-    <p>
-
-    <div>
-
+    <div class="card flex-center py-4">
+      <p><%= @room.description %></p>
     </div>
 
 
 
+    <ul class="d-flex justify-content-center">
+      <% @room_data[@room.id].each do |item_id|  %>
+          <div class="card">
+            <% if !@inventory.include? (item_id) %>
+            <%= @items[item_id][:name]  %> <%= link_to "Pickup", pickup_path(id: @room[:id], item_id: item_id), method: :post, class: "btn btn-sm btn-success" %>
+            <% else %>
+              <%= @items[item_id][:name]  %> (max # in inventory)
+            <% end %>
+          </div>
+      <% end %>
+    </ul>
 
     <p>
     <% @paths.each_with_index do |path, index| %>
-      <% if path[:require] == nil || (@inventory.include? path[:require] - 1)  %>
+      <% if path[:require] == nil || (@inventory.include? path[:require])  %>
         <% if @chance[index] == true %>
             <%= link_to path[:text] + " #{path[:chance]}% chance (test:pass)", current_room_path(id:path[:main_path]), class: 'btn btn-primary' %>
         <% elsif @chance[index] == false %>
@@ -60,10 +37,27 @@
           <%= link_to path[:text], current_room_path(id:path[:main_path]), class: 'btn btn-primary' %>
         <% end %>
       <% else %>
-        <%= link_to path[:text] + " (locked. needs #{@items[path[:require] - 1].name})", current_room_path(id:path[:main_path]) , class: 'disabled btn btn-danger' %>
+        <%= link_to path[:text] + " (Locked, requires #{@items[path[:require]].name})", current_room_path(id:path[:main_path]) , class: 'disabled btn btn-secondary' %>
       <% end %>
     <% end %>
     </p>
+
+
+    <ul>
+      <strong>In your inventory you find:</strong>
+      <div class="d-flex justify-content-center">
+        <% @inventory.each do |item_id| %>
+              <p  class="card mx-2"><%= @items[item_id][:name] %>
+                <% if !@room_data[@room.id].include? (item_id) %>
+                  <%= link_to "Drop", drop_path(id: @room[:id], item_id: item_id), method: :post, class: "btn btn-warning btn-sm" %>
+                <% else %>
+                  <br>
+                  (max # in room)
+                <% end %>
+              </p>
+        <% end %>
+      </div>
+    </ul>
 
   </div>
 </div>
