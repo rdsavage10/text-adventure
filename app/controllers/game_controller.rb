@@ -24,23 +24,27 @@ class GameController < ApplicationController
     @room_data = guest_user[:room_data]
     @room_items = @room_data[@room[:id]]
 
-    @chance = []                              #preps variable for use
+    @path = []                                #preps variable for use
+    @path_text = []                                #preps variable for use
     @paths.each_with_index do |path, index|   #puts each chance value in an array that corresponds to the path index
       if path[:chance] != nil
         if path[:chance] >= rand(100)
-          @chance[index] = true
+          @path_text[index] = path[:text] + " (#{path[:chance]}% chance)"
+          @path[index] = path[:main_path]
         else
-          @chance[index] = false
+          @path_text[index] = path[:text] + " (#{path[:chance]}% chance)"
+          @path[index] = path[:chance_path]
         end
       else
-        @chance[index] = "pass"
+        @path_text[index] = path[:text]
+        @path[index] = path[:main_path]
       end
     end
 
     @action = [@action_text[:default]]        # Default room text
     if !@room_items.nil?                      # Room text for each default item
       @room_items.each do |item|
-        if !@action_text[:pre_pickup][item].nil?
+        if !@action_text[:pre_pickup].nil? && !@action_text[:pre_pickup][item].nil?
           @action.push(@action_text[:pre_pickup][item])
         end
       end
