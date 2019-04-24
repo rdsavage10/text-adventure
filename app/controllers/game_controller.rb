@@ -26,9 +26,11 @@ class GameController < ApplicationController
 
     @path = []                                #preps variable for use
     @path_text = []                                #preps variable for use
+    @luck = guest_user[:luck]
     @paths.each_with_index do |path, index|   #puts each chance value in an array that corresponds to the path index
       if path[:chance] != nil
-        if path[:chance] >= rand(100)
+        luck = @luck / 100
+        if (path[:chance] * luck)  >= (rand(99) + 1)
           @path_text[index] = path[:text] + " (#{path[:chance]}% chance)"
           @path[index] = path[:main_path]
         else
@@ -58,6 +60,7 @@ class GameController < ApplicationController
   def new_game
     guest_user[:room_data] = {}
     guest_user[:item_id] = [0]
+    guest_user[:luck] = 100
     user = guest_user
     user.save
     redirect_to current_room_path(id: params[:id])
@@ -67,6 +70,16 @@ class GameController < ApplicationController
     id = guest_user[:room_id]
     redirect_to current_room_path(id: id)
 
+  end
+
+  def game_over
+    guest_user[:room_data] = {}
+    guest_user[:room_id] = nil
+    guest_user[:item_id] = [0]
+    guest_user[:luck] = 100
+    user = guest_user
+    user.save
+    redirect_to start_menu_path
   end
 
   def drop                 #Drops item from inventory into room

@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_16_222222) do
+ActiveRecord::Schema.define(version: 2019_04_24_224738) do
 
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "luck"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -41,6 +42,7 @@ ActiveRecord::Schema.define(version: 2019_04_16_222222) do
     t.text "item_id"
     t.text "room_id"
     t.text "room_data"
+    t.integer "luck"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

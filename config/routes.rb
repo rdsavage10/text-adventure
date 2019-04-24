@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post 'drop' => 'game#drop'
   post 'new_game' => 'game#new_game'
   post 'continue_game' => 'game#continue_game'
+  post 'game_over' => 'game#game_over'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

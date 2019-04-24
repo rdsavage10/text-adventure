@@ -45,7 +45,7 @@ Examples:
 #item 2
 #Item.create(name:"Penny", description: "It's shiny!")
 
-item = Item.create([{name:"Dagger", description: "A dagger made of the finest steel"}, {name:"Garden Key", description: "Looks like an average door key"}, name:"Penny", description: "It's shiny!" ])
+item = Item.create([{name:"Dagger", description: "A dagger made of the finest steel"}, {name:"Garden Key", description: "Looks like an average door key"}, name:"Penny", description: "It's shiny!", luck: 50 ])
 
 
 
@@ -102,8 +102,8 @@ Room.create(
 #5
 Room.create(
   name: "Oops" ,
-  description: "You clamber over the railing and prepare to jump, but before you can, you slip, hitting your head on the railing and falling to the garden below
-  GAME OVER")
+  description: "You clamber over the railing and prepare to jump, but before you can, you slip, hitting your head on the railing and falling to the garden below.
+  GAME OVER.")
 
 #6
 Room.create(name: "" , description: "" , path: [["",], [" ",]])
