@@ -23,18 +23,21 @@ class GameController < ApplicationController
     end
     @room_data = guest_user[:room_data]
     @room_items = @room_data[@room[:id]]
-
-    @path = []                                #preps variable for use
-    @path_text = []                                #preps variable for use
+    @path = []                                #declare for use
+    @path_text = []                           #declare for use
     @luck = guest_user[:luck]
     @paths.each_with_index do |path, index|   #puts each chance value in an array that corresponds to the path index
       if path[:chance] != nil
-        luck = @luck / 100
-        if (path[:chance] * luck)  >= (rand(99) + 1)
-          @path_text[index] = path[:text] + " (#{path[:chance]}% chance)"
+        luck = @luck.to_f / 100
+        @chance = path[:chance] * luck
+        if @chance > 100
+          @chance = 100
+        end
+        if @chance  >= (rand(99) + 1)
+          @path_text[index] = path[:text] + " (#{@chance}% chance)"
           @path[index] = path[:main_path]
         else
-          @path_text[index] = path[:text] + " (#{path[:chance]}% chance)"
+          @path_text[index] = path[:text] + " (#{@chance}% chance)"
           @path[index] = path[:chance_path]
         end
       else
@@ -82,32 +85,36 @@ class GameController < ApplicationController
     redirect_to start_menu_path
   end
 
-  def drop                 #Drops item from inventory into room
+  def drop                                    #Drops item from inventory into room
+    @items = Item.all
     id = params[:id].to_i
     item_id = params[:item_id].to_i
     user = guest_user
-    #guest_user[:item_id][id].push(item_id)
+    if !@items[item_id][:luck].nil?          #modifies luck attribute of player
+      guest_user[:luck] -= @items[item_id][:luck]
+    end
     if !guest_user[:room_data][id].include? item_id
        guest_user[:item_id].delete(item_id)
        guest_user[:room_data][id].push(item_id)
     end
     user.save
-    # guest_user[:room_data][params[:id]] = nil
     redirect_to current_room_path(id: id)
   end
 
-  def pickup
+  def pickup                                 #Takes item from room into inventory
+    @items = Item.all
     id = params[:id].to_i
     item_id = params[:item_id].to_i
     user = guest_user
-    #guest_user[:item_id][id].push(item_id)
+    if !@items[item_id][:luck].nil?          #modifies luck attribute of player
+      guest_user[:luck] += @items[item_id][:luck]
+    end
     if !guest_user[:item_id].include? item_id
        guest_user[:item_id].push(item_id)
        guest_user[:room_data][id].delete(item_id)
     end
     user.save
-    # guest_user[:room_data][params[:id]] = nil
-    redirect_to current_room_path(id: params[:id])             #Takes item from room into inventory
+    redirect_to current_room_path(id: params[:id])
   end
 
   def index
