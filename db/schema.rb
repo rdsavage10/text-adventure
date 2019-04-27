@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2019_04_24_224738) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "luck"
+    t.text "stats"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2019_04_24_224738) do
     t.text "item_id"
     t.text "room_id"
     t.text "room_data"
-    t.integer "luck"
+    t.text "stats"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

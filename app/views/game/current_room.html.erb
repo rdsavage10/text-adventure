@@ -1,7 +1,7 @@
 <body>
 
 <div class="container my-5 text-center">
-  <div class="fancy-font">
+  <div class="fancy-font d-flex justify-content-center">
       <h1><%= @room.name %></h1>
   </div>
 
@@ -21,7 +21,6 @@
             <% else %>
               <br><%= @items[item_id][:name]  %> (max # in inventory)
             <% end %>
-              <br>
               <a tabindex="0" class="badge badge-secondary" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom" title="<%= @items[item_id][:name] %>" data-content="<%= @items[item_id][:description]%>">Info</a>
           </div>
       <% end %>
@@ -50,8 +49,7 @@
                     <br>
                     (max # in room)
                   <% end %>
-                  <br>
-                  <a tabindex="0" class="badge badge-secondary" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom" title="<%= @items[item_id][:name] %>" data-content="<%= @items[item_id][:description]%>">Info</a>
+                  <a tabindex="0" class="badge badge-secondary" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom" title="<%= @items[item_id][:name] %>" data-content="<%= @items[item_id][:description] %>">Info</a>
                 </p>
           <% end %>
         </div>
@@ -62,9 +60,24 @@
 </div>
 </body>
 
-<footer class="">                                <!-- Main menu escape -->
-  <% if @paths.length > 0 %>
-    <%= link_to "Main Menu", start_menu_path, class: "btn btn-danger m-1"%>
+<footer>
+  <% if @paths.length > 0 %>                                   <!-- Main menu escape -->
+    <div class="row">
+      <div class="col col-10"></div>
+      <div class="col card text-center">
+        <p id="HP">HP: <%= @stats[:HP] %>/100</p>
+        <p id="MP">MP: <%= @stats[:MP] %>/100</p>
+        <p id="AP">AP: <%= @stats[:AP] %>/100</p>
+        <p id="luck">Luck: <%= @stats[:luck] %>%</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col fixed-footer">
+        <%= link_to "Main Menu", start_menu_path, class: "btn btn-danger m-1"%>
+      </div>
+    </div>
+
   <% else %>
     <p class="text-center">  <%= link_to "Main Menu", game_over_path, method: :post, class: "btn btn-lg btn-danger m-1 "%> </p>
   <% end %>

@@ -14,7 +14,7 @@ class GameController < ApplicationController
     guest_user.save
     @items = Item.all                         #displays attributes for all possible items
     @inventory = guest_user[:item_id]         #allows reading of stored inventory between rooms
-    @paths = @room.path                       #shortcut to this rooms exits
+    @paths = @room.path                       #shortcut to this room's exits
     @action_text = @room.action_text          #WIP
     @default_room_items = @room.room_items    #set to default room state
     @room_data = {}                           #preps for use later
@@ -25,7 +25,9 @@ class GameController < ApplicationController
     @room_items = @room_data[@room[:id]]
     @path = []                                #declare for use
     @path_text = []                           #declare for use
-    @luck = guest_user[:luck]
+    @stats = guest_user[:stats]
+    @luck = guest_user[:stats][:luck]
+
     @paths.each_with_index do |path, index|   #puts each chance value in an array that corresponds to the path index
       if path[:chance] != nil
         luck = @luck.to_f / 100
@@ -63,7 +65,7 @@ class GameController < ApplicationController
   def new_game
     guest_user[:room_data] = {}
     guest_user[:item_id] = [0]
-    guest_user[:luck] = 100
+    guest_user[:stats] = {:HP => 100, :MP => 100, :AP => 100, :luck => 100, }
     user = guest_user
     user.save
     redirect_to current_room_path(id: params[:id])
@@ -79,7 +81,7 @@ class GameController < ApplicationController
     guest_user[:room_data] = {}
     guest_user[:room_id] = nil
     guest_user[:item_id] = [0]
-    guest_user[:luck] = 100
+    guest_user[:stats] = {:HP => 100, :MP => 100, :AP => 100, :luck => 100}
     user = guest_user
     user.save
     redirect_to start_menu_path
@@ -90,8 +92,8 @@ class GameController < ApplicationController
     id = params[:id].to_i
     item_id = params[:item_id].to_i
     user = guest_user
-    if !@items[item_id][:luck].nil?          #modifies luck attribute of player
-      guest_user[:luck] -= @items[item_id][:luck]
+    if !@items[item_id][:stats].nil? && !@items[item_id][:stats][:luck].nil?          #modifies luck attribute of player
+      guest_user[:stats][:luck] -= @items[item_id][:stats][:luck]
     end
     if !guest_user[:room_data][id].include? item_id
        guest_user[:item_id].delete(item_id)
@@ -106,8 +108,8 @@ class GameController < ApplicationController
     id = params[:id].to_i
     item_id = params[:item_id].to_i
     user = guest_user
-    if !@items[item_id][:luck].nil?          #modifies luck attribute of player
-      guest_user[:luck] += @items[item_id][:luck]
+    if !@items[item_id][:stats].nil? && !@items[item_id][:stats][:luck].nil?          #modifies luck attribute of player
+      guest_user[:stats][:luck] += @items[item_id][:stats][:luck]
     end
     if !guest_user[:item_id].include? item_id
        guest_user[:item_id].push(item_id)
@@ -118,7 +120,7 @@ class GameController < ApplicationController
   end
 
   def index
-    @rooms = Room.all              #Begining of room builder GUI
+    @rooms = Room.all                        #Beginning of room builder GUI
   end
 
 

@@ -45,7 +45,7 @@ Examples:
 #item 2
 #Item.create(name:"Penny", description: "It's shiny!")
 
-item = Item.create([{name:"Dagger", description: "A dagger made of the finest steel"}, {name:"Garden Key", description: "Looks like an average door key"}, name:"Penny", description: "It's shiny!", luck: 50 ])
+item = Item.create([{name:"Dagger", description: "A dagger made of the finest steel"}, {name:"Garden Key", description: "Looks like an average door key"}, {name:"Penny", description: "It's shiny! +25% luck", stats: {luck: 25, shine: 999} } ])
 
 
 
