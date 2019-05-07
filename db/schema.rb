@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_24_224738) do
+ActiveRecord::Schema.define(version: 2019_05_06_003534) do
+
+  create_table "entities", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "maxHP"
+    t.integer "maxAP"
+    t.text "attacks"
+    t.text "loot"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "items", force: :cascade do |t|
     t.string "name"

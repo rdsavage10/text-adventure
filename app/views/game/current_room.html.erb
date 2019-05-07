@@ -28,8 +28,12 @@
 
     <p class="justify-content-center">                                          <!-- Path buttons -->
     <% @paths.each_with_index do |path, index| %>
-      <% if path[:require] == nil || (@inventory.include? path[:require])  %>
-        <%= link_to @path_text[index], current_room_path(id:@path[index]), method: :post, class: 'btn btn-sm btn-primary' %>
+      <% if path[:require].nil? || (@inventory.include? path[:require])  %>
+        <% if !path[:battle_path].nil? && path[:fought] == false %>
+          <%= link_to @path_text[index], combat_path(id: path[:combat_path]), class: 'btn btn-sm btn-primary' %>
+        <% else %>
+          <%= link_to @path_text[index], current_room_path(id:@path[index], action_check: "path"), method: :post, class: 'btn btn-sm btn-primary' %>
+        <% end %>
       <% else %>
         <%= link_to path[:text] + " (Locked, requires #{@items[path[:require]].name})", current_room_path(id:path[:main_path]) , class: 'disabled btn btn-sm btn-secondary' %>
       <% end %>
@@ -65,9 +69,8 @@
     <div class="row">
       <div class="col col-10"></div>
       <div class="col card text-center">
-        <p id="HP">HP: <%= @stats[:HP] %>/100</p>
-        <p id="MP">MP: <%= @stats[:MP] %>/100</p>
-        <p id="AP">AP: <%= @stats[:AP] %>/100</p>
+        <p id="HP">HP: <%= @stats[:HP] %>/<%= @stats[:maxHP] %></p>
+        <p id="AP">AP: <%= @stats[:AP] %>/<%= @stats[:maxAP] %></p>
         <p id="luck">Luck: <%= @stats[:luck] %>%</p>
       </div>
     </div>

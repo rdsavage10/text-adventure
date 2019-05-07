@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post 'new_game' => 'game#new_game'
   post 'continue_game' => 'game#continue_game'
   post 'game_over' => 'game#game_over'
+  get 'combat' => 'battle#combat'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

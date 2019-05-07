@@ -45,7 +45,16 @@ Examples:
 #item 2
 #Item.create(name:"Penny", description: "It's shiny!")
 
-item = Item.create([{name:"Dagger", description: "A dagger made of the finest steel"}, {name:"Garden Key", description: "Looks like an average door key"}, {name:"Penny", description: "It's shiny! +25% luck", stats: {luck: 25, shine: 999} } ])
+item = Item.create([
+  {name:"Dagger", description: "A dagger made of the finest steel", stats: { damage: 25}},
+  {name:"Garden Key", description: "Looks like an average door key"},
+  {name:"Penny", description: "It's shiny! +25% luck", stats: {luck: 25, shine: 999}},
+  {name:"A Nice Hat", description: "Wow this is nice! +25 max HP", stats: {maxHP: 25}}])
+
+
+
+Entity.create([name: 'A Giant Rat', description: "A mean ol' rat who hates you", maxHP: 50, maxAP:50, attacks:{bite: [10, 5], scratch: [15, 7], infect:[0,0,5,5]} ])
+
 
 
 
@@ -77,7 +86,7 @@ Room.create(
     post_action: " You look up at the balconies, amazed you survived that jump.",
 
     },
-  path: [{text: "Go back inside" , main_path: 1, require: 1}],
+  path: [{text: "Go back inside" ,  combat_path: 6, fought: false, require: 1, main_path: 1}],
   room_items: [1]
 )
 
@@ -88,7 +97,8 @@ Room.create(
   path: [
     {text:"Decend Stairs", main_path: 1},
     {text: "Jump off ledge", main_path: 2, chance: 10, chance_path: 5, add_state: "jumped"},
-    {text: "Jump to the other balcony", main_path: 4, chance: 70, chance_path: 5}])
+    {text: "Jump to the other balcony", main_path: 4, chance: 70, chance_path: 5}],
+  room_items: [3])
 
 #4
 Room.create(
@@ -97,7 +107,8 @@ Room.create(
   path: [
     {text: "Decend Stairs" , main_path: 1 },
     {text: "Jump Over Rails", main_path: 2, chance: 50, chance_path: 5, add_state: "jumped"}
-    ])
+    ],
+  room_items: [2])
 
 #5
 Room.create(
