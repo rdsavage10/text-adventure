@@ -106,10 +106,12 @@ class GameController < ApplicationController
         guest_user[:stats][:maxAP] -= @items[item_id][:stats][:maxAP]
       end
     end
-    if !guest_user[:room_data][id].include? item_id
-      guest_user[:item_id][guest_user[:item_id].find_index(item_id)] = nil
-      guest_user[:room_data][id].push(item_id)
-    end
+
+    # if !guest_user[:item_id].include? item_id
+       guest_user[:room_data][id].push(item_id)
+       item_index = guest_user[:item_id].find_index(item_id)
+       guest_user[:item_id].delete_at(item_index)
+    # end
     user.save
     redirect_to current_room_path(id: id, action_check: "action")
   end
@@ -130,11 +132,11 @@ class GameController < ApplicationController
         guest_user[:stats][:maxAP] += @items[item_id][:stats][:maxAP]
       end
     end
-    if !guest_user[:item_id].include? item_id
+    # if !guest_user[:item_id].include? item_id
        guest_user[:item_id].push(item_id)
-       debugger
-       guest_user[:item_id][guest_user[:item_id].find_index(item_id)] = nil
-    end
+       item_index = guest_user[:room_data][id].find_index(item_id)
+       guest_user[:room_data][id].delete_at(item_index)
+    # end
     user.save
     redirect_to current_room_path(id: params[:id], action_check: 'action')
   end

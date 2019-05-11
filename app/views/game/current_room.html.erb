@@ -16,11 +16,11 @@
     <ul class="d-flex justify-content-center">   <!-- Items in room -->
       <% @room_data[@room.id].each do |item_id|  %>
           <div class="card">
-            <% if !@inventory.include? (item_id) %>
-              <%= @items[item_id][:name]  %> <%= link_to "Pickup", pickup_path(id: @room[:id], item_id: item_id), method: :post, class: "btn btn-sm btn-success" %>
-            <% else %>
-              <br><%= @items[item_id][:name]  %> (max # in inventory)
-            <% end %>
+            <%# if !@inventory.include? (item_id) %>
+              <%= @items[item_id][:name]  %> <%= link_to "Pick up", pickup_path(id: @room[:id], item_id: item_id), method: :post, class: "btn btn-sm btn-success" %>
+            <%# else %>
+              <!-- <br><%# @items[item_id][:name]  %> (max # in inventory) -->
+            <%# end %>
               <a tabindex="0" class="badge badge-secondary" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom" title="<%= @items[item_id][:name] %>" data-content="<%= @items[item_id][:description]%>">Info</a>
           </div>
       <% end %>
@@ -47,12 +47,12 @@
         <div class="d-flex justify-content-center">
           <% @inventory.each do |item_id| %>
                 <p  class="card mx-2"><%= @items[item_id][:name] %>
-                  <% if !@room_data[@room.id].include? (item_id) %>
+                  <%# if !@room_data[@room.id].include? (item_id) %>
                     <%= link_to "Drop", drop_path(id: @room[:id], item_id: item_id), method: :post, class: "btn btn-sm btn-warning" %>
-                  <% else %>
-                    <br>
-                    (max # in room)
-                  <% end %>
+                  <%# else %>
+                    <!-- <br>
+                    (max # in room) -->
+                  <%# end %>
                   <a tabindex="0" class="badge badge-secondary" role="button" data-toggle="popover" data-trigger="focus" data-placement="bottom" title="<%= @items[item_id][:name] %>" data-content="<%= @items[item_id][:description] %>">Info</a>
                 </p>
           <% end %>
