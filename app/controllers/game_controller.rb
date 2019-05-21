@@ -66,8 +66,7 @@ class GameController < ApplicationController
     guest_user[:room_data] = {}
     guest_user[:item_id] = [0]
     guest_user[:stats] = {:HP => 100, :maxHP => 100, :AP => 100, :maxAP => 100, :luck => 100}
-    user = guest_user
-    user.save
+    guest_user.save
     redirect_to current_room_path(id: params[:id], action: true)
   end
 
@@ -82,8 +81,7 @@ class GameController < ApplicationController
     guest_user[:room_id] = nil
     guest_user[:item_id] = [0]
     guest_user[:stats] = {:HP => 100, :maxHP => 100, :AP => 100, :maxAP => 100, :luck => 100}
-    user = guest_user
-    user.save
+    guest_user.save
     redirect_to start_menu_path
   end
 
@@ -91,7 +89,6 @@ class GameController < ApplicationController
     @items = Item.all
     id = params[:id].to_i
     item_id = params[:item_id].to_i
-    user = guest_user
     if !@items[item_id][:stats].nil?           #modifies attributes of player
       if !@items[item_id][:stats][:luck].nil?
         guest_user[:stats][:luck] -= @items[item_id][:stats][:luck]
@@ -112,7 +109,7 @@ class GameController < ApplicationController
        item_index = guest_user[:item_id].find_index(item_id)
        guest_user[:item_id].delete_at(item_index)
     # end
-    user.save
+    guest_user.save
     redirect_to current_room_path(id: id, action_check: "action")
   end
 
@@ -120,7 +117,6 @@ class GameController < ApplicationController
     @items = Item.all
     id = params[:id].to_i
     item_id = params[:item_id].to_i
-    user = guest_user
     if !@items[item_id][:stats].nil?           #modifies attributes of player
       if !@items[item_id][:stats][:luck].nil?
         guest_user[:stats][:luck] += @items[item_id][:stats][:luck]
@@ -137,7 +133,7 @@ class GameController < ApplicationController
        item_index = guest_user[:room_data][id].find_index(item_id)
        guest_user[:room_data][id].delete_at(item_index)
     # end
-    user.save
+    guest_user.save
     redirect_to current_room_path(id: params[:id], action_check: 'action')
   end
 
@@ -151,9 +147,8 @@ class GameController < ApplicationController
 
   def room_history #saves the room default items to mutate later
       if !@default_room_items.nil? && ( guest_user[:room_data].nil? || guest_user[:room_data][@room.id].nil?)
-        user = guest_user
         guest_user[:room_data][@room.id] = @default_room_items
-        user.save
+        guest_user.save
       end
   end
 
