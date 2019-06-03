@@ -68,23 +68,7 @@
             <footer>
               <% if @paths.length > 0 %>
                 <!-- Main menu escape -->
-                <div class="row">
-                  <div class="col col-10"></div>
-                  <div class="col card text-center">
-                    <p id="HP">HP:
-                      <%= @stats[:HP] %>/<%= @stats[:maxHP] %></p>
-                    <p id="AP">AP:
-                      <%= @stats[:AP] %>/<%= @stats[:maxAP] %></p>
-                    <p id="luck">Luck:
-                      <%= @stats[:luck] %>%</p>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col fixed-footer">
-                    <%= link_to "Main Menu", start_menu_path, class: "btn btn-danger m-1"%>
-                  </div>
-                </div>
+              <%= render 'stat_bar' %> 
 
               <% else %>
                 <p class="text-center">
