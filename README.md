@@ -1,24 +1,5 @@
-# README
+# Rick's Text Adventure
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This little game was something I put together at the end of class as my final project.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* You can play it at https://ricks-text-adventure.herokuapp.com
