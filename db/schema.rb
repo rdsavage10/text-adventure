@@ -15,8 +15,7 @@ ActiveRecord::Schema.define(version: 2019_04_13_212043) do
   create_table "rooms", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.text "link1"
-    t.text "link2"
+    t.text "path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
